@@ -1,5 +1,5 @@
 // src/pages/Index.tsx
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Editor from "@/components/Editor";
 import { toast } from "sonner";
 import { SupportedLanguage } from "@/types/editor";
@@ -12,6 +12,7 @@ import { SUPPORTED_LANGUAGES } from "@/constants/languages";
 import { Switch } from "@/components/ui/switch";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Maximize2, Minimize2 } from "lucide-react";
 
 const Index = () => {
   const [content, setContent] = useState<string>("");
@@ -21,6 +22,8 @@ const Index = () => {
   const [savedPastes, setSavedPastes] = useState<any[]>([]);
   const [currentPasteId, setCurrentPasteId] = useState<string | null>(null);
   const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(true);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const editorContainerRef = useRef<HTMLDivElement>(null);
   const session = useSession();
   const supabase = useSupabaseClient();
 
@@ -29,6 +32,17 @@ const Index = () => {
       fetchSavedPastes();
     }
   }, [session?.user]);
+
+  useEffect(() => {
+    if (isExpanded && editorContainerRef.current) {
+      const rect = editorContainerRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const newHeight = viewportHeight - rect.top - 40;
+      editorContainerRef.current.style.height = `${newHeight}px`;
+    } else if (editorContainerRef.current) {
+      editorContainerRef.current.style.height = '';
+    }
+  }, [isExpanded]);
 
   const fetchSavedPastes = async () => {
     try {
@@ -157,9 +171,23 @@ const Index = () => {
             </Button>
           )}
 
-          <div className={`flex flex-col bg-card rounded-lg shadow-lg border border-border ${
-            session ? (isSidebarVisible ? 'md:col-span-3' : 'md:col-span-4') : 'md:col-span-4'
-          }`}>
+          <div
+            ref={editorContainerRef}
+            className={`flex flex-col bg-card rounded-lg shadow-lg border border-border relative transition-all duration-200 ${session ? (isSidebarVisible ? 'md:col-span-3' : 'md:col-span-4') : 'md:col-span-4'
+              }`}
+          >
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute right-2 top-2 z-10"
+              onClick={() => setIsExpanded(!isExpanded)}
+            >
+              {isExpanded ? (
+                <Minimize2 className="h-4 w-4" />
+              ) : (
+                <Maximize2 className="h-4 w-4" />
+              )}
+            </Button>
             <div className="flex-grow">
               <Editor
                 content={content}
@@ -168,6 +196,7 @@ const Index = () => {
                 isRawView={isRawView}
               />
             </div>
+
             <div className="flex items-center justify-between px-3 py-1 border-t border-border bg-muted/50">
               <div className="text-xs text-muted-foreground">
                 {content.length} characters
