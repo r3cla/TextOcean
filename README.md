@@ -14,7 +14,7 @@ An open-source, web-based text/code snippet sharing application called "TextOcea
 
 ***Shortlisted Features:***
 - Allow sharing text via secure, unlisted links
-- Paste expiration (24h, 7d, 30d)
+- Paste expiration (12h, 24h, 7d, 30d)
 - Add alternative login method
 
 ***"Maybe Later" Features:***
