@@ -10,9 +10,8 @@ import PasteActions from "@/components/PasteActions";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { SUPPORTED_LANGUAGES } from "@/constants/languages";
 import { Switch } from "@/components/ui/switch";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Maximize2, Minimize2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Maximize2, Minimize2 } from "lucide-react";
 
 const Index = () => {
   const [content, setContent] = useState<string>("");
@@ -173,30 +172,19 @@ const Index = () => {
 
           <div
             ref={editorContainerRef}
-            className={`flex flex-col bg-card rounded-lg shadow-lg border border-border relative transition-all duration-200 ${session ? (isSidebarVisible ? 'md:col-span-3' : 'md:col-span-4') : 'md:col-span-4'
-              }`}
+            className={`flex flex-col bg-card rounded-lg shadow-lg border border-border relative transition-all duration-200 ${
+              session ? (isSidebarVisible ? 'md:col-span-3' : 'md:col-span-4') : 'md:col-span-4'
+            }`}
           >
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute right-2 top-2 z-10"
-              onClick={() => setIsExpanded(!isExpanded)}
-            >
-              {isExpanded ? (
-                <Minimize2 className="h-4 w-4" />
-              ) : (
-                <Maximize2 className="h-4 w-4" />
-              )}
-            </Button>
             <div className="flex-grow">
               <Editor
                 content={content}
                 onChange={setContent}
                 language={isSyntaxHighlighting ? language : "plaintext"}
                 isRawView={isRawView}
+                height={isExpanded ? "calc(100vh - 180px)" : "460px"}
               />
             </div>
-
             <div className="flex items-center justify-between px-3 py-1 border-t border-border bg-muted/50">
               <div className="text-xs text-muted-foreground">
                 {content.length} characters
@@ -222,6 +210,18 @@ const Index = () => {
                     ))}
                   </SelectContent>
                 </Select>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="h-6 px-2"
+                >
+                  {isExpanded ? (
+                    <Minimize2 className="h-4 w-4" />
+                  ) : (
+                    <Maximize2 className="h-4 w-4" />
+                  )}
+                </Button>
               </div>
             </div>
           </div>

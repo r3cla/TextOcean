@@ -1,16 +1,17 @@
 import MonacoEditor from "@monaco-editor/react";
 import { EditorProps } from "@/types/editor";
 
-const Editor = ({ content, onChange, language, isRawView }: EditorProps) => {
+
+const Editor = ({ content, onChange, language, isRawView, height = "460px" }: EditorProps) => {
   const renderRawView = () => (
-    <pre className="p-4 whitespace-pre-wrap break-words font-mono text-sm h-[460px] overflow-y-auto">
+    <pre className="p-4 whitespace-pre-wrap break-words font-mono text-sm" style={{ height }}>
       {content}
     </pre>
   );
 
   const renderMonacoEditor = () => (
     <MonacoEditor
-      height="460px"
+      height={height}
       language={language}
       value={content}
       onChange={(value) => onChange(value ?? "")}

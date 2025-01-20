@@ -6,6 +6,7 @@ export interface EditorProps {
   onChange: (value: string) => void;
   language: SupportedLanguage;
   isRawView: boolean;
+  height?: string;
 }
 
 export interface LanguageSelectorProps {
