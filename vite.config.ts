@@ -4,7 +4,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: '/TextOcean_App/',  // Added this line
+  base: '/TextOcean/',  // Added this line
   server: {
     host: "::",
     port: 8080,
