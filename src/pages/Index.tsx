@@ -1,3 +1,4 @@
+// src/pages/Index.tsx
 import { useState, useEffect } from "react";
 import Editor from "@/components/Editor";
 import { toast } from "sonner";
@@ -9,6 +10,8 @@ import PasteActions from "@/components/PasteActions";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { SUPPORTED_LANGUAGES } from "@/constants/languages";
 import { Switch } from "@/components/ui/switch";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   const [content, setContent] = useState<string>("");
@@ -17,6 +20,7 @@ const Index = () => {
   const [isSyntaxHighlighting, setIsSyntaxHighlighting] = useState<boolean>(true);
   const [savedPastes, setSavedPastes] = useState<any[]>([]);
   const [currentPasteId, setCurrentPasteId] = useState<string | null>(null);
+  const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(true);
   const session = useSession();
   const supabase = useSupabaseClient();
 
@@ -122,9 +126,19 @@ const Index = () => {
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          {session && (
-            <div className="bg-card rounded-lg shadow-lg border border-border p-4 md:col-span-1 overflow-y-auto max-h-[500px]">
-              <h2 className="text-lg font-semibold mb-4 text-foreground">Saved Pastes</h2>
+          {session && isSidebarVisible && (
+            <div className="relative bg-card rounded-lg shadow-lg border border-border p-4 md:col-span-1 overflow-y-auto max-h-[500px]">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-lg font-semibold text-foreground">Saved Pastes</h2>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsSidebarVisible(false)}
+                  className="absolute -right-3 top-2"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+              </div>
               <SavedPastesList
                 pastes={savedPastes}
                 onLoadPaste={handleLoadPaste}
@@ -132,7 +146,20 @@ const Index = () => {
             </div>
           )}
 
-          <div className={`flex flex-col bg-card rounded-lg shadow-lg border border-border ${session ? 'md:col-span-3' : 'md:col-span-4'}`}>
+          {session && !isSidebarVisible && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsSidebarVisible(true)}
+              className="absolute left-4 top-36 z-10"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          )}
+
+          <div className={`flex flex-col bg-card rounded-lg shadow-lg border border-border ${
+            session ? (isSidebarVisible ? 'md:col-span-3' : 'md:col-span-4') : 'md:col-span-4'
+          }`}>
             <div className="flex-grow">
               <Editor
                 content={content}
