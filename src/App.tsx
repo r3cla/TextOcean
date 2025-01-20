@@ -16,7 +16,7 @@ const App = () => {
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <BrowserRouter basename="/TextOcean_App">
+          <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
             </Routes>
