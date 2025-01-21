@@ -62,6 +62,10 @@ const Index = () => {
   };
 
   const handleSave = async () => {
+    if (!content.trim()) {
+      toast.error('Cannot save empty paste');
+      return;
+    }
     if (!session) {
       toast.error('Please sign in to save pastes');
       return;
