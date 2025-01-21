@@ -3,7 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import Editor from "@/components/Editor";
 import { toast } from "sonner";
 import { SupportedLanguage } from "@/types/editor";
-import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useDevSession } from "@/hooks/use-dev-session";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import AuthButton from "@/components/AuthButton";
 import SavedPastesList from "@/components/SavedPastesList";
 import PasteActions from "@/components/PasteActions";
@@ -23,7 +24,7 @@ const Index = () => {
   const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(true);
   const [isExpanded, setIsExpanded] = useState(false);
   const editorContainerRef = useRef<HTMLDivElement>(null);
-  const session = useSession();
+  const session = useDevSession();
   const supabase = useSupabaseClient();
 
   useEffect(() => {
@@ -65,10 +66,17 @@ const Index = () => {
     }
 
     try {
+      const pasteData = {
+        content,
+        language,
+        title: content.slice(0, 15),
+        user_id: session.user.id,
+      };
+
       if (currentPasteId) {
         const { error } = await supabase
           .from('pastes')
-          .update({ content, language })
+          .update({ content, language, title: content.slice(0, 15) })
           .eq('id', currentPasteId);
 
         if (error) throw error;
@@ -76,13 +84,7 @@ const Index = () => {
       } else {
         const { error } = await supabase
           .from('pastes')
-          .insert([
-            {
-              content,
-              language,
-              user_id: session.user.id,
-            },
-          ]);
+          .insert([pasteData]);
 
         if (error) throw error;
         toast.success('Paste saved successfully');
@@ -92,6 +94,43 @@ const Index = () => {
     } catch (error) {
       console.error('Error saving paste:', error);
       toast.error('Failed to save paste');
+    }
+  };
+
+  const handleDeletePaste = async (pasteId: string) => {
+    try {
+      const { error } = await supabase
+        .from('pastes')
+        .delete()
+        .eq('id', pasteId);
+
+      if (error) throw error;
+
+      if (pasteId === currentPasteId) {
+        handleNewPaste();
+      }
+
+      toast.success('Paste deleted successfully');
+      fetchSavedPastes();
+    } catch (error) {
+      console.error('Error deleting paste:', error);
+      toast.error('Failed to delete paste');
+    }
+  };
+
+  const handleUpdateTitle = async (pasteId: string, newTitle: string) => {
+    try {
+      const { error } = await supabase
+        .from('pastes')
+        .update({ title: newTitle })
+        .eq('id', pasteId);
+
+      if (error) throw error;
+      toast.success('Title updated successfully');
+      fetchSavedPastes();
+    } catch (error) {
+      console.error('Error updating paste title:', error);
+      toast.error('Failed to update title');
     }
   };
 
@@ -105,6 +144,7 @@ const Index = () => {
     setContent(paste.content);
     setLanguage(paste.language);
     setCurrentPasteId(paste.id);
+    setIsSyntaxHighlighting(true);
   };
 
   const handleCopy = async () => {
@@ -138,9 +178,9 @@ const Index = () => {
           />
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
           {session && isSidebarVisible && (
-            <div className="relative bg-card rounded-lg shadow-lg border border-border p-4 md:col-span-1 overflow-y-auto max-h-[500px]">
+            <div className="relative bg-card rounded-lg shadow-lg border border-border p-4 md:col-span-1 overflow-hidden max-h-[500px]">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-semibold text-foreground">Saved Pastes</h2>
                 <Button
@@ -155,6 +195,8 @@ const Index = () => {
               <SavedPastesList
                 pastes={savedPastes}
                 onLoadPaste={handleLoadPaste}
+                onDeletePaste={handleDeletePaste}
+                onUpdateTitle={handleUpdateTitle}
               />
             </div>
           )}
@@ -173,7 +215,7 @@ const Index = () => {
           <div
             ref={editorContainerRef}
             className={`flex flex-col bg-card rounded-lg shadow-lg border border-border relative transition-all duration-200 ${
-              session ? (isSidebarVisible ? 'md:col-span-3' : 'md:col-span-4') : 'md:col-span-4'
+              session ? (isSidebarVisible ? 'md:col-span-5' : 'md:col-span-6') : 'md:col-span-6'
             }`}
           >
             <div className="flex-grow">

@@ -3,18 +3,20 @@ import { LogIn } from "lucide-react";
 import { useSupabaseClient, useSession } from "@supabase/auth-helpers-react";
 import { toast } from "sonner";
 import { AuthError } from "@supabase/supabase-js";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface AuthButtonProps {
   // Extensible for future props if needed
 }
 
-// Maps auth error codes to user-friendly messages
 const getAuthErrorMessage = (error: AuthError): string => {
   const errorMessages: Record<string, string> = {
-    'auth/invalid-credentials': 'Invalid login credentials',
-    'auth/user-not-found': 'User not found',
-    'auth/service-unavailable': 'Authentication service is unavailable',
-    // Add more error mappings as needed
+    'invalid_grant': 'Invalid login credentials',
+    'user_not_found': 'User not found',
+    'service_unavailable': 'Authentication service is unavailable',
+    'invalid_request': 'Invalid authentication request',
+    'unauthorized': 'Unauthorized access',
+    // Add more Supabase-specific error codes as needed
   };
   
   return errorMessages[error.message] || 'An error occurred during authentication';
@@ -35,7 +37,7 @@ const AuthButton: React.FC<AuthButtonProps> = () => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'discord',
         options: {
-          redirectTo: window.location.origin,
+          redirectTo: `${window.location.origin}`, // More explicit
           skipBrowserRedirect: false
         }
       });
@@ -59,28 +61,42 @@ const AuthButton: React.FC<AuthButtonProps> = () => {
 
   const renderAuthenticatedView = () => (
     <div className="flex items-center gap-4">
-      <span className="text-sm text-gray-500">
+      <span className="text-sm text-muted-foreground">
         {session?.user.email}
       </span>
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={handleSignOut}
-      >
-        Sign Out
-      </Button>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleSignOut}
+          >
+            Log Out
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <span className="text-xs">Sign out of your account</span>
+        </TooltipContent>
+      </Tooltip>
     </div>
   );
 
   const renderUnauthenticatedView = () => (
-    <Button
-      variant="outline"
-      size="sm"
-      onClick={handleDiscordSignIn}
-    >
-      <LogIn className="h-4 w-4 mr-2" />
-      Sign in with Discord
-    </Button>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleDiscordSignIn}
+        >
+          <LogIn className="h-4 w-4 mr-2" />
+          Log In with Discord
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <span className="text-xs">Sign in with Discord to sync and save your files</span>
+      </TooltipContent>
+    </Tooltip>
   );
 
   return session ? renderAuthenticatedView() : renderUnauthenticatedView();
