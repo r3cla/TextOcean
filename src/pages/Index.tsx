@@ -13,6 +13,8 @@ import { SUPPORTED_LANGUAGES } from "@/constants/languages";
 import { Switch } from "@/components/ui/switch";
 import { ChevronLeft, ChevronRight, Maximize2, Minimize2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Footer from "@/components/Footer";
+
 
 const Index = () => {
   const [content, setContent] = useState<string>("");
@@ -271,6 +273,7 @@ const Index = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
