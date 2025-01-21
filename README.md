@@ -20,7 +20,7 @@ An open-source, web-based text/code snippet sharing application called "TextOcea
 - Add alternative login method
 
 ***"Maybe Later" Features:***
-- Import local .js, .py, .html & .css files
+- Import local .js, .ts, .py, .html & .css files
 - Improved syntax highlighting (very basic for whats available atm)
 - More syntax highlighting language options
 - Password protected txtdumps
