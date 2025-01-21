@@ -7,7 +7,7 @@ An open-source, web-based text/code snippet sharing application called "TextOcea
 ***Key features:***
 - Multi-language code editor with syntax highlighting
 - Discord authentication
-- Save/update/load pastes (requires login for cloud)
+- Save/update/delete/load pastes (requires login for cloud)
 - Local saves (no import yet)
 - Copy to clipboard functionality
 - Raw text view option
