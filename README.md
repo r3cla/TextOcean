@@ -26,5 +26,5 @@ An open-source, web-based text/code snippet sharing application called "TextOcea
 - Password protected share links
 - Version history
 
-## Demo
+## Demo (needs to be updated)
 [![txtdumpdemo.gif](https://i.postimg.cc/c4n8rb1R/txtdumpdemo.gif)](https://postimg.cc/ZCJqQjdn)
