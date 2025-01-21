@@ -14,13 +14,13 @@ An open-source, web-based text/code snippet sharing application called "TextOcea
 - Collapsible sidebar for saved pastes
 
 ***Shortlisted Features:***
-- Import .html, .css, .txt & .md files
+- Import local .html, .css, .txt & .md files
 - Allow sharing text via secure, unlisted links
 - Paste expiration (12h, 24h, 7d, 30d)
 - Add alternative login method
 
 ***"Maybe Later" Features:***
-- Import .js, .py, .tsx, .jsx files
+- Import local .js, .py, .tsx, .jsx files
 - Improved syntax highlighting (very basic for whats available atm)
 - More syntax highlighting language options
 - Password protected txtdumps
