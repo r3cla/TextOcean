@@ -5,13 +5,12 @@
 An open-source, web-based text/code snippet sharing application called "TextOcean" - similar to Pastebin or GitHub Gists.
 
 ***Key features:***
-- Multi-language code editor with syntax highlighting
-- Discord authentication
-- Save/update/delete/load pastes (requires login for cloud)
-- Local saves (no import yet)
+- Multi-language code editor with syntax highlighting (toggle, raw view)
+- Discord authentication with cloud sync
+- Save/update/delete/load pastes
 - Copy to clipboard functionality
-- Raw text view option
-- Collapsible sidebar for saved pastes
+- Responsive layout with expandable editor and collapsible sidebar
+- Completely open-source
 
 ***Shortlisted Features:***
 - Import local .txt & .md files
