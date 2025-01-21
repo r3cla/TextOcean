@@ -23,7 +23,7 @@ An open-source, web-based text/code snippet sharing application called "TextOcea
 - Import local .js, .ts, .py, .html & .css files
 - Improved syntax highlighting (very basic for whats available atm)
 - More syntax highlighting language options
-- Password protected txtdumps
+- Password protected links
 - Version history
 
 ## Demo
