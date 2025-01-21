@@ -6,7 +6,7 @@ An open-source, web-based text/code snippet sharing application called "TextOcea
 
 ***Key features:***
 - Multi-language code editor with syntax highlighting (toggle, raw view)
-- Discord authentication with cloud sync
+- Discord authentication with cloud sync via Supabase
 - Save/update/delete/load pastes
 - Copy to clipboard functionality
 - Responsive layout with expandable editor and collapsible sidebar
