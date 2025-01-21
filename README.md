@@ -17,7 +17,7 @@ An open-source, web-based text/code snippet sharing application called "TextOcea
 - Import local .txt & .md files
 - Allow sharing text via secure, unlisted links
 - Paste expiration (12h, 24h, 7d, 30d)
-- Add alternative login method
+- Add alternative login method (probably GitHub)
 
 ***"Maybe Later" Features:***
 - Import local .js, .ts, .py, .html & .css files
