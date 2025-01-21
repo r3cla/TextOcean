@@ -12,7 +12,7 @@ const Footer = () => {
           asChild
         >
           <a
-            href="https://github.com/yourusername/textocean"
+            href="https://github.com/r3cla/TextOcean"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1"
@@ -29,7 +29,7 @@ const Footer = () => {
           asChild
         >
           <a
-            href="https://github.com/yourusername/textocean/blob/main/LICENSE"
+            href="https://github.com/r3cla/TextOcean/blob/master/LICENSE"
             target="_blank"
             rel="noopener noreferrer"
           >
