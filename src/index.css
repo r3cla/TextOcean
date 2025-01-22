@@ -78,3 +78,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+.monaco-editor .monaco-scrollable-element .scrollbar.vertical {
+  background-color: rgba(0, 0, 0) !important;
+}
+
+.monaco-editor .monaco-scrollable-element .slider.vertical {
+  background-color: rgba(120, 120, 120) !important;
+}
