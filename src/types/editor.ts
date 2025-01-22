@@ -7,6 +7,7 @@ export interface EditorProps {
   language: SupportedLanguage;
   isRawView: boolean;
   height?: string;
+  theme?: string;
 }
 
 export interface LanguageSelectorProps {
