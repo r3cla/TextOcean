@@ -18,13 +18,19 @@ import Footer from "@/components/Footer";
 
 const Index = () => {
   const [content, setContent] = useState<string>("");
-  const [language, setLanguage] = useState<SupportedLanguage>("markdown");
+  const [language, setLanguage] = useState<SupportedLanguage>("plaintext");
   const [isRawView, setIsRawView] = useState<boolean>(false);
-  const [isSyntaxHighlighting, setIsSyntaxHighlighting] = useState<boolean>(true);
+  const [isHighContrast, setIsHighContrast] = useState<boolean>(() =>
+    localStorage.getItem('editor-high-contrast') === 'true'
+  );
   const [savedPastes, setSavedPastes] = useState<any[]>([]);
   const [currentPasteId, setCurrentPasteId] = useState<string | null>(null);
-  const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(true);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(() =>
+    localStorage.getItem('editor-sidebar-visible') !== 'false'
+  );
+  const [isExpanded, setIsExpanded] = useState(() =>
+    localStorage.getItem('editor-expanded') === 'true'
+  );
   const editorContainerRef = useRef<HTMLDivElement>(null);
   const session = useDevSession();
   const supabase = useSupabaseClient();
@@ -142,7 +148,7 @@ const Index = () => {
 
   const handleNewPaste = () => {
     setContent("");
-    setLanguage("markdown");
+    setLanguage("plaintext");
     setCurrentPasteId(null);
   };
 
@@ -150,7 +156,6 @@ const Index = () => {
     setContent(paste.content);
     setLanguage(paste.language);
     setCurrentPasteId(paste.id);
-    setIsSyntaxHighlighting(true);
   };
 
   const handleCopy = async () => {
@@ -195,7 +200,10 @@ const Index = () => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => setIsSidebarVisible(false)}
+                  onClick={() => {
+                    setIsSidebarVisible(false);
+                    localStorage.setItem('editor-sidebar-visible', 'false');
+                  }}
                   className="absolute -right-3 top-2"
                 >
                   <ChevronLeft className="h-4 w-4" />
@@ -214,7 +222,10 @@ const Index = () => {
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => setIsSidebarVisible(true)}
+              onClick={() => {
+                setIsSidebarVisible(true);
+                localStorage.setItem('editor-sidebar-visible', 'true');
+              }}
               className="absolute left-4 top-36 z-10"
             >
               <ChevronRight className="h-4 w-4" />
@@ -230,7 +241,8 @@ const Index = () => {
               <Editor
                 content={content}
                 onChange={setContent}
-                language={isSyntaxHighlighting ? language : "plaintext"}
+                language={language}
+                theme={isHighContrast ? "hc-black" : "vs-dark"}
                 isRawView={isRawView}
                 height={isExpanded ? "calc(100vh - 180px)" : "460px"}
               />
@@ -241,11 +253,13 @@ const Index = () => {
               </div>
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground">Syntax Highlighting</span>
+                  <span className="text-xs text-muted-foreground">High Contrast</span>
                   <Switch
-                    checked={isSyntaxHighlighting}
-                    onCheckedChange={setIsSyntaxHighlighting}
-                    className="h-4 w-7 data-[state=checked]:bg-green-500 [&>span]:h-3 [&>span]:w-3"
+                    checked={isHighContrast}
+                    onCheckedChange={(checked) => {
+                      setIsHighContrast(checked);
+                      localStorage.setItem('editor-high-contrast', String(checked));
+                    }}
                   />
                 </div>
                 <Select value={language} onValueChange={(value) => setLanguage(value as SupportedLanguage)}>
@@ -263,7 +277,11 @@ const Index = () => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => setIsExpanded(!isExpanded)}
+                  onClick={() => {
+                    const newState = !isExpanded;
+                    setIsExpanded(newState);
+                    localStorage.setItem('editor-expanded', String(newState));
+                  }}
                   className="h-6 px-2"
                 >
                   {isExpanded ? (
