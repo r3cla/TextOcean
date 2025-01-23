@@ -6,34 +6,33 @@ An open-source, web-based text/code snippet sharing application called "TextOcea
 
 ***Key features:***
 - Multi-language code editor with syntax highlighting (toggle, raw view)
-- Discord authentication with cloud sync via Supabase
+- Cloud sync via Supabase
 - Save/update/delete/load pastes
 - Copy to clipboard functionality
 - Responsive layout with expandable editor and collapsible sidebar
 - Completely open-source
 
 ***Shortlisted Features:***
-- Import local .txt & .md files
 - Allow sharing text files via secure, unlisted links
-- Paste expiration (12h, 24h, 7d, 30d)
 - Remove OAuth login method alltogether and use a privacy-focused method instead utilizing unique, random identifier links.
 - Complete mobile responsiveness 
 
 ***"Maybe Later" Features:***
-- Import local .js, .ts, .py, .html & .css files
 - Improved syntax highlighting (very basic for whats available atm)
 - More syntax highlighting language options
-- Password protected share links
-- Version history
 
-**Planned Privacy Enhancements:**<br>
-When I add shareable links, level 1 will be available immediately, the other 2 will be enhancements added after the fact.
-- **Level 1: Unlisted (default)**<br>
-Unlisted uploads cannot be found unless someone knows its unique, random identifier. If someone knows this identifier, they can view the upload.
-- **Level 2: Unlisted - Collaborative**<br>
-With this privacy setting, the upload cannot be found unless someone knows its unique, random identifier. If someone knows this identifier, they can see the contents and also modify it by entering a password.
-- **Level 3: Private**<br>
-With this privacy setting, the upload cannot be found unless someone knows its unique, random identifier. If someone knows this identifier, they cannot see or modify it without entering the password of the upload. Your upload and its attachments are encrypted.
+## Shareable Link Privacy Enhancements
+- **Level 1: Unlisted (default)**
+Cannot be found without knowing the random identifier URL. If someone knows the identifier, they can view the contents. Intended for non-sensitive data only.
+- **Level 2: Unlisted - Passworded**
+Cannot be found without knowing the random identifier URL. If someone knows the identifier, they must enter a password to view the contents.
+- **Level 3: Unlisted - Collaborative**
+Cannot be found without knowing the random identifier URL. If someone knows the identifier, they must enter a password to view and edit the contents.
+- **Level 4: Private**
+Cannot be found without knowing the random identifier URL. If someone knows the identifier, they must enter a password to view or edit the contents. Data is encrypted.
+- **Additional Toggles:**
+    - Burn: File is automatically deleted after being viewed.
+    - Expiry: User selects a value up to 7 days and the file is deleted after that time passes.
 
 ## Demo (needs to be updated)
 [![txtdumpdemo.gif](https://i.postimg.cc/c4n8rb1R/txtdumpdemo.gif)](https://postimg.cc/ZCJqQjdn)
