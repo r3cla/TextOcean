@@ -26,14 +26,13 @@ An open-source, web-based text/code snippet sharing application called "TextOcea
 - Password protected share links
 - Version history
 
-**Planned Privacy Enhancements:***
-
+**Planned Privacy Enhancements:***<br>
 When I add shareable links, level 1 will be available by default, the other 2 will be enhancements added after the fact.
-- Level 1: Unlisted (default)
+- **Level 1: Unlisted (default)**<br>
 Unlisted uploads cannot be found unless someone knows its unique, random identifier. If someone knows this identifier, they can view the upload.
-- Level 2: Unlisted - Collaborative 
+- **Level 2: Unlisted - Collaborative**<br>
 With this privacy setting, the upload cannot be found unless someone knows its unique, random identifier. If someone knows this identifier, they can see the contents and also modify it by entering a password.
-- Level 3: Private
+- **Level 3: Private**<br>
 With this privacy setting, the upload cannot be found unless someone knows its unique, random identifier. If someone knows this identifier, they cannot see or modify it without entering the password of the upload. Your upload and its attachments are encrypted.
 
 ## Demo (needs to be updated)
