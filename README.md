@@ -29,7 +29,7 @@ Cannot be found without knowing the random identifier URL. If someone knows the 
 - **Level 2a: Unlisted - Collaborative**<br>
 Cannot be found without knowing the random identifier URL. If someone knows the identifier, they must enter a password to view and edit the contents.
 - **Level 3: Private**<br>
-Cannot be found without knowing the random identifier URL. If someone knows the identifier, they must enter a password to view or edit the contents. Data is encrypted.
+Cannot be found without knowing the random identifier URL. If someone knows the identifier, they must enter a strong password to view or edit the contents. Data is encrypted.
 - **Additional Toggles:**
     - Burn: File is automatically deleted after being viewed.
     - Expiry: User selects a value up to 7 days and the file is deleted after that time passes.
