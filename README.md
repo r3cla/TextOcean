@@ -27,6 +27,7 @@ An open-source, web-based text/code snippet sharing application called "TextOcea
 - Version history
 
 **Planned Privacy Enhancements:***
+
 When I add shareable links, level 1 will be available by default, the other 2 will be enhancements added after the fact.
 - Level 1: Unlisted (default)
 Unlisted uploads cannot be found unless someone knows its unique, random identifier. If someone knows this identifier, they can view the upload.
