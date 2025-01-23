@@ -22,13 +22,13 @@ An open-source, web-based text/code snippet sharing application called "TextOcea
 - More syntax highlighting language options
 
 ## Shareable Link Privacy Enhancements
-- **Level 1: Unlisted (default)**
+- **Level 1: Unlisted (default)**<br>
 Cannot be found without knowing the random identifier URL. If someone knows the identifier, they can view the contents. Intended for non-sensitive data only.
-- **Level 2: Unlisted - Passworded**
+- **Level 2: Unlisted - Passworded**<br>
 Cannot be found without knowing the random identifier URL. If someone knows the identifier, they must enter a password to view the contents.
-- **Level 3: Unlisted - Collaborative**
+- **Level 3: Unlisted - Collaborative**<br>
 Cannot be found without knowing the random identifier URL. If someone knows the identifier, they must enter a password to view and edit the contents.
-- **Level 4: Private**
+- **Level 4: Private**<br>
 Cannot be found without knowing the random identifier URL. If someone knows the identifier, they must enter a password to view or edit the contents. Data is encrypted.
 - **Additional Toggles:**
     - Burn: File is automatically deleted after being viewed.
