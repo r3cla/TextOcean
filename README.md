@@ -13,8 +13,9 @@ An open-source, web-based text/code snippet sharing application called "TextOcea
 - Completely open-source
 
 ***Shortlisted Features:***
+- Add toggle to switch to alternative tiptap editor for rich text, and Monaco for code
 - Allow sharing text files via secure, unlisted links
-- Remove OAuth login method alltogether and use a privacy-focused method instead utilizing unique, random identifier links.
+- Remove OAuth login method alltogether and use a privacy-focused method instead utilizing unique, random identifier links
 - Complete mobile responsiveness 
 
 ***"Maybe Later" Features:***
